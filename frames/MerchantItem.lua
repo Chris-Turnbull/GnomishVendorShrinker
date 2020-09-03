@@ -38,10 +38,14 @@ local function RequiresConfirmation(index)
 	if not HasAllCommonBarterItems(index) then return true end
 end
 
+local alt_click_exceptions = {}
+--alt_click_exceptions[GetCurrencyInfo(824)] = true
+-- Add any other exceptional currencies here
 
 local function OnClick(self, button)
 	local id = self:GetID()
-	local hasaltcurrency = (GetMerchantItemCostInfo(id) > 0)
+	local currencyname = select(4,GetMerchantItemCostItem(id, 1))
+	local hasaltcurrency = ((GetMerchantItemCostInfo(id) > 0) and (select(4,GetMerchantItemCostItem(id, 1)) ~= "Garrison Resources"))
 
 	if IsAltKeyDown() and not hasaltcurrency then
 		self:BuyItem(true)
@@ -136,7 +140,12 @@ local function SetValue(self, i)
 	self.ItemName:SetText(text)
 
 	self.AltCurrency:SetValue(i)
-
+	if self.AltCurrency:IsShown() then
+	    self.ItemName:SetPoint("RIGHT", self.AltCurrency, "LEFT", -GAP, 0)
+	else
+	    self.ItemName:SetPoint("RIGHT", self.ItemPrice, "LEFT", -GAP, 0)
+	end
+	
 	if extendedCost then
 		self.link, self.texture, self.extendedCost = link, itemTexture, true
 	end

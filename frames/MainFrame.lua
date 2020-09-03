@@ -16,17 +16,19 @@ function ns.NewMainFrame()
 
 	local rows = {}
 	for i=1,NUMROWS do
-		local row = ns.NewMerchantItemFrame(GVS)
+		if ns and ns.NewMerchantItemFrame then
+			local row = ns.NewMerchantItemFrame(GVS)
 
-		if i == 1 then
-			row:SetPoint("TOPLEFT")
-			row:SetPoint("RIGHT", -19, 0)
-		else
-			row:SetPoint("TOPLEFT", rows[i-1], "BOTTOMLEFT")
-			row:SetPoint("RIGHT", rows[i-1])
+			if i == 1 then
+				row:SetPoint("TOPLEFT")
+				row:SetPoint("RIGHT", -19, 0)
+			else
+				row:SetPoint("TOPLEFT", rows[i-1], "BOTTOMLEFT")
+				row:SetPoint("RIGHT", rows[i-1])
+			end
+
+			rows[i] = row
 		end
-
-		rows[i] = row
 	end
 
 	local scrollbar = ns.NewScrollBar(GVS, 0, 5)
@@ -63,6 +65,7 @@ function ns.NewMainFrame()
 	end)
 	GVS:SetScript("OnEvent", Refresh)
 	GVS:SetScript("OnShow", function(self)
+		self.Merchant = UnitGUID("npc")
 		local max = math.max(0, GetMerchantNumItems() - NUMROWS)
 		scrollbar:SetMinMaxValues(0, max)
 		scrollbar:SetValue(0)

@@ -32,7 +32,7 @@ end
 
 
 local function Sound()
-	PlaySound("UChatScrollButton")
+	PlaySound(1115)
 end
 
 
@@ -103,6 +103,7 @@ function ns.NewScrollBar(parent, offset, step)
 	local border = CreateFrame("Frame", nil, f)
 	border:SetPoint("TOPLEFT", up, -5, 5)
 	border:SetPoint("BOTTOMRIGHT", down, 5, -3)
+	Mixin(border, BackdropTemplateMixin)
 	border:SetBackdrop(BACKDROP)
 	local r,g = TOOLTIP_DEFAULT_COLOR.r, TOOLTIP_DEFAULT_COLOR.g
 	local b,a = TOOLTIP_DEFAULT_COLOR.b, 0.5

@@ -1,4 +1,8 @@
-## Interface: 70000
+## Interface: 80000
+## X-Curse-Packaged-Version: 8.0.0.1
+## X-Curse-Project-Name: GnomishVendorShrinker
+## X-Curse-Project-ID: gnomishvendorshrinker
+## X-Curse-Repository-ID: wow/gnomishvendorshrinker/mainline
 
 ## Title: GnomishVendorShrinker
 ## Notes: Compact scrolling vendor frame
